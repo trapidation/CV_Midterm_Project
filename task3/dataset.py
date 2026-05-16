@@ -4,16 +4,14 @@ from torchvision.datasets import OxfordIIITPet
 import torchvision.transforms as T
 from torch.utils.data import DataLoader
 
-# Mask 掩码转换：将原始的 1,2,3 转换为 0,1,2，以便计算交叉熵
 class MaskTransform:
     def __init__(self, size=(256, 256)):
         self.size = size
 
     def __call__(self, mask):
-        # 使用最近邻插值，保证像素值依然是整数类别
         mask = T.Resize(self.size, interpolation=T.InterpolationMode.NEAREST)(mask)
         mask = torch.as_tensor(np.array(mask), dtype=torch.long)
-        mask = mask - 1  # 关键：将 1,2,3 映射为 0,1,2
+        mask = mask - 1  
         return mask
 
 def get_dataloaders(batch_size=16, data_dir='./data'):

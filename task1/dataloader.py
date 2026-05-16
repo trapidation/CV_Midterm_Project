@@ -43,24 +43,17 @@ def get_dataloaders(batch_size=32):
         transform=test_transform
     )
 
-    # 3. 封装成 DataLoader (Windows系统建议 num_workers=0)
+    # 3. 封装成 DataLoader
     train_loader = DataLoader(dataset=train_dataset, batch_size=batch_size, shuffle=True, num_workers=0)
     test_loader = DataLoader(dataset=test_dataset, batch_size=batch_size, shuffle=False, num_workers=0)
-
-    print(f"✅ 数据准备完毕！训练集包含 {len(train_dataset)} 张图片，测试集包含 {len(test_dataset)} 张图片。")
-    print(f"✅ 宠物种类数: {len(train_dataset.classes)}")
-    
+    print(f"数据准备完毕！训练集包含 {len(train_dataset)} 张图片，测试集包含 {len(test_dataset)} 张图片。")
+    print(f"宠物种类数: {len(train_dataset.classes)}")
     return train_loader, test_loader
 
 if __name__ == '__main__':
-    # 顺便测一下你的显卡能不能用
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     print(f"当前使用的计算设备: {device}")
-
-    # 开始加载数据
     train_dl, test_dl = get_dataloaders(batch_size=32)
-    
-    # 拿出一个 Batch 看看长什么样
     images, labels = next(iter(train_dl))
     print(f"一个 Batch 的图片形状: {images.shape}") 
     print(f"一个 Batch 的标签形状: {labels.shape}")

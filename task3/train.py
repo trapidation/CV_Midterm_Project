@@ -28,7 +28,6 @@ def compute_miou(preds, targets, num_classes=3):
     return sum(valid_ious) / len(valid_ious) if valid_ious else 0.0
 
 def train(args):
-    # 1. 初始化 Swanlab
     swanlab.init(
         project="CV-Task3-Segmentation",
         experiment_name=f"unet-{args.loss_type}-loss",
