@@ -25,7 +25,6 @@ def get_dataloaders(batch_size=32):
     ])
 
     # 2. 下载并加载 Dataset
-    print("正在准备训练集... (第一次运行会自动下载，约800MB，请耐心等待)")
     train_dataset = datasets.OxfordIIITPet(
         root='./data', 
         split='trainval', 
@@ -34,7 +33,6 @@ def get_dataloaders(batch_size=32):
         transform=train_transform
     )
 
-    print("正在准备测试集...")
     test_dataset = datasets.OxfordIIITPet(
         root='./data', 
         split='test',    
